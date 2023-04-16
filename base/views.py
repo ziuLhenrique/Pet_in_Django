@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from base.forms import ContatoForm
+from base.models import Contato
 
 
 def inicio(request):
@@ -7,12 +8,10 @@ def inicio(request):
 
 def contato(request):
    sucesso = False
-   if request.method == 'GET':
-      form = ContatoForm()
-   else:
-      form = ContatoForm(request.POST)
-      if form.is_valid():
-         sucesso = True
+   form = ContatoForm(request.POST or None)
+   if form.is_valid():
+      sucesso = True
+      form.save()
    contexto = {
       'telefone': '(16) 99291-1234',
       'responsavel': 'Maria da Silva Pereira',
