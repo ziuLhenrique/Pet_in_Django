@@ -3,17 +3,19 @@
 {% load bootstrap5 %}
 {% block principal %}
 
-            <h1>Fale Conosco</h1>
-            <p>
-                Envie uma mensagem através do formulário abaixo ou ligue para o telefone {{ telefone }} falando com o responsável {{ responsavel | upper }}-Email para contato-{{ email }}
-            </p>
-            {% if sucesso %}
-            <p class="alert alert-success">Mensagem enviada com sucesso</p>
-            {% endif %}
-            <form action="" method="post" novalidate>
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                <hr>
-                <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
-            </form>
-            {% endblock %}
+    <h1>Fale Conosco</h1>
+    <p>
+        Envie uma mensagem através do formulário abaixo ou ligue para o telefone {{ telefone }} 
+        falando com o responsável {{ responsavel | upper }}-Email para contato-{{ email }}
+    </p>
+    {% if sucesso %}
+    <p class="alert alert-success">Mensagem enviada com sucesso</p>
+    {% else %}
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <hr>
+        <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+    </form>
+    {% endif %}
+    {% endblock %}
