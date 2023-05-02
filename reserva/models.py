@@ -22,5 +22,5 @@ class Reserva(models.Model):
         return f'{self.nome}: {self.data} - {self.turno}'
     
     class Meta:
-        verbose_name = 'Resserva de Banho'
+        verbose_name = 'Reserva de Banho'
         verbose_name_plural = 'Reservas de Banho'
