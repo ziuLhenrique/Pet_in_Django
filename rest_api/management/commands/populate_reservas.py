@@ -7,4 +7,15 @@ class Command(BaseCommand):
     help = 'Cria dados fake para testar a API de agendamento'
 
     def handle(self, *args, **options):
-        pass
+        total = 50
+        self.stdout.write(
+            self.style.WARNING(f'Criando {total} agendamento')
+        )
+        for i in range(total):
+            reserva = baker.make(Reserva)
+            reserva.save()
+
+        self.stdout.write(
+            self.style.SUCCESS('Agendamentos criados')
+        )
+        
