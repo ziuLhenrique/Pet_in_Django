@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.routers import SimpleRouter
 
-from rest_api.views import AgendamentoModelViewSet, hello_world
+from rest_api.serializers import AgendamentoModelViewSet,  hello_world
 
 app_name = 'rest_api'
 
