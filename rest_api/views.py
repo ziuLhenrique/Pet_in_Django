@@ -1,46 +1,21 @@
-#from django.shortcuts import render
-#from rest_framework.decorators import api_view
-#from rest_framework.response import Response
+from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
+from reserva.models import Reserva
+from rest_api.serializers import AgendamentoModelSerializer
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
+# Create your views here.
+class AgendamentoModelViewSet(ModelViewSet):
+    queryset = Reserva.objects.all()
+    serializer_class = AgendamentoModelSerializer
+    #authentication_classes = [TokenAuthentication]
+    #permission_classes = [IsAuthenticated]
 
- 
-
-from rest_framework.serializers import ModelSerializer, HyperlinkedRelatedField
-
-from .serializers import AgendamentoModelSerializer
-from reserva.models import  Petshop
-
-from rest_framework.serializers import ModelSerializer, HyperlinkedRelatedField
-
-from .models import Petshop
-
-
-
-
-class PetshopModelSerializer(ModelSerializer):
-    reservas = HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='api: reserva-detail'
-
-    )
-
-    class Meta: 
-        model = Petshop
-        fields = '__all__'
-
-
-
-
-'''
-@api_view(['GET', 'POST', 'PUT'])
+@api_view(['GET', 'POST']) #essa api pode ser acessada pelos métodos get e post
 def hello_world(request):
     if request.method == 'POST':
         return Response({'message': f'Hello, {request.data.get("name")}'})
-    
-    elif request.method == 'PUT':
-        return Response({'Dolars': 'R$2.000,000,45' })
-    
-    else:
-        return Response ({'Meu Saldo': 'R$5.110,200 To Rico $$$$$$!Ha!Ha!'})
-'''
+    return Response({'hello': 'world API'})
