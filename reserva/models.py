@@ -40,3 +40,6 @@ class Petshop(models.Model):
     numero = models.CharField(verbose_name='Número', max_length=10)
     bairro = models.CharField(verbose_name='Bairro', max_length=50)
 
+    def qtd_reservas(self):
+        return self.reservas.count()
+
