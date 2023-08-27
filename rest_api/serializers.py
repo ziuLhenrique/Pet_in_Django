@@ -1,32 +1,20 @@
-from rest_framework.relations import PrimaryKeyRelatedField
-from rest_framework.serializers import ModelSerializer
-from reserva.models import Petshop, Reserva
+#from  termios import CDSUSP
+#from rest_framework.serializers import ModelSerializer, HyperlinkedRelatedField
 
-class PetShopRelatedFieldCustomSerializer(PrimaryKeyRelatedField):
 
-   def __init__(self, **kwargs):
-      # Corrigir a definição do serializer
-      self.serializer = PetshopModelSerializer
-      super().__init__(**kwargs)
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-   def use_pk_only_optimization(self):
-      return False
-   
-   def to_representation(self, value):
-      return self.serializer(value, context=self.context).data
 
-class PetshopModelSerializer(ModelSerializer):
-    # Defina o ModelSerializer para o modelo Petshop aqui (se ainda não existir)
-    class Meta:
-        model = Petshop
-        fields = '__all__'
+from rest_api.serializers import AgendamentoModelSerializer 
+from rest_framework.authentication import TokenAuthentication
 
-class AgendamentoModelSerializer(ModelSerializer):
-    petshop = PetShopRelatedFieldCustomSerializer(
-        queryset=Petshop.objects.all(),
-        read_only=False
-    )
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from reserva.models import  Reserva
 
-    class Meta:
-        model = Reserva
-        fields = '__all__'
+
+
+class AgendamentoModelViewSet(ModelViewSet):
+    queryset = Reserva.objects.all()
+    serializer_class = AgendamentoModelSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
