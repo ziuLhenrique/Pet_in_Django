@@ -1,25 +1,20 @@
-import datetime
-from rest_framework.serializers import(
-    ModelSerializer,
-    HyperlinkedRelatedField,
-    PrimaryKeyRelatedField,
-    ValidationError
-)
+#from  termios import CDSUSP
+#from rest_framework.serializers import ModelSerializer, HyperlinkedRelatedField
 
-from reserva.models import Petshop, Reserva
 
-class AgendamentoModelSerializer(ModelSerializer):
-    petshop = PetshopRelatedFieldCustomSerializer(
-        queryset=Petshop.objects.all(),
-        read_only=False
-    )
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-def validate_data(self, value):
-    hoje = datetime.date.today()
-    if value < hoje:
-        raise ValidationError('Não é possivel realizar um agendamento para o passado!')
-    return value
 
-class Meta:
-    model = Reserva
-    fields = '__all__'
+from rest_api.serializers import AgendamentoModelSerializer 
+from rest_framework.authentication import TokenAuthentication
+
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from reserva.models import  Reserva
+
+
+
+class AgendamentoModelViewSet(ModelViewSet):
+    queryset = Reserva.objects.all()
+    serializer_class = AgendamentoModelSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
