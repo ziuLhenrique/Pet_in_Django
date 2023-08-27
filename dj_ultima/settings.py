@@ -37,10 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     #AUTHTOKEN
     'rest_framework.authtoken',
+    #PRECISA ADICIONAR QUANDO NOVA BIB FOR INSTALADA
     'bootstrap5',
+    #PRECISA ADICIONAR APP
     'base',
+    #PRECISA ADICIONAR APP
     'reserva',
+    #REST FOI INSTALADO
     'rest_framework',
     'rest_api'
 ]
@@ -111,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'America/sao_paulo'
+TIME_ZONE = 'America/ao_paulo'
 
 USE_I18N = True
 

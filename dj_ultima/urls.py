@@ -1,7 +1,8 @@
-"""dj_ultima URL Configuration
+"""
+URL configuration for FormularioDjango project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,15 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
-from base.views import inicio, contato
+#PARA INCLUIR RESERVA URL
+from django.urls import include
+
+#PRECISA ADICIONAR INICIO
+from base.views import inicio
+from base.views import contato
 
 urlpatterns = [
-    path('', inicio),
-    path('contato/', contato),
-    path('reserva/', include('reserva.urls', namespace='reserva')),
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/', include('rest_api.urls', namespace='api')),
+	#PRECISA POR A PATH
+    path("", inicio),
+    path("contato/", contato),
+    path("admin/", admin.site.urls),
+	#ADICIONAR RESERVA
+	path("reserva/", include('reserva.urls', namespace='reserva')),
+    #ADICIONAR REST
+    path("api-auth/", include('rest_framework.urls')),
+    path("api/", include('rest_api.urls', namespace = 'api')),
 ]
